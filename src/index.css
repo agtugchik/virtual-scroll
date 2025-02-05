@@ -106,6 +106,9 @@ section {
   display: block;
 }
 body {
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
   line-height: 1;
 }
 ol,
@@ -126,4 +129,10 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
 }

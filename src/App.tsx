@@ -1,5 +1,7 @@
+import { Table } from "./components/Table";
+
 const App = () => {
-  return <div>virtual-scroll</div>;
+  return <Table />;
 };
 
 export default App;

@@ -16,10 +16,7 @@ export const Cell = memo(({ text, progress }: CellProps) => {
 
   return (
     <div
-      style={{
-        width: CellSizes.width,
-        height: CellSizes.height,
-      }}
+      style={CellSizes}
       onMouseEnter={() => setMouseIn(true)}
       onMouseLeave={() => setMouseIn(false)}
       className={styles.cell}

@@ -110,6 +110,9 @@ body {
   height: 100vh;
   overflow: visible;
   line-height: 1;
+  * {
+    box-sizing: border-box;
+  }
 }
 ol,
 ul {

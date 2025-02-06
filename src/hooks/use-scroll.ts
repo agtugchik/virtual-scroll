@@ -22,7 +22,7 @@ const useSctoll = (id: string) => {
         scrollTop: target.scrollTop,
         scrollLeft: target.scrollLeft,
       });
-    }, 150);
+    }, 0);
   };
 
   useLayoutEffect(() => {

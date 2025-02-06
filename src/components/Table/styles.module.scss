@@ -4,14 +4,4 @@
   overflow: scroll;
   display: flex;
   flex-direction: row;
-  .leftPlaceholder,
-  .rightPlaceholder {
-    height: 100%;
-  }
-  .container {
-    .topPlaceholder,
-    .botPlaceholder {
-      width: 100%;
-    }
-  }
 }

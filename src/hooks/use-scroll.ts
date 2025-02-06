@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const useSctoll = (id: string) => {
   const [scroll, setScroll] = useState({
@@ -22,10 +22,10 @@ const useSctoll = (id: string) => {
         scrollTop: target.scrollTop,
         scrollLeft: target.scrollLeft,
       });
-    }, 50);
+    }, 150);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const target = document.getElementById(id) as HTMLElement;
     const handler = () => scrollHandler(target);
     target.addEventListener("scroll", handler, false);

@@ -10,6 +10,9 @@ interface CellProps {
 
 export const Cell = memo(({ text, progress }: CellProps) => {
   const [mouseIn, setMouseIn] = useState(false);
+  const ProgressBar = (
+    <Progress type="circle" percent={Number(progress.toFixed(2))} />
+  );
 
   return (
     <div
@@ -23,10 +26,10 @@ export const Cell = memo(({ text, progress }: CellProps) => {
     >
       {mouseIn ? (
         <Tooltip placement="top" title={text}>
-          <Progress type="circle" percent={Number(progress.toFixed(2))} />
+          {ProgressBar}
         </Tooltip>
       ) : (
-        <Progress type="circle" percent={Number(progress.toFixed(2))} />
+        ProgressBar
       )}
     </div>
   );

@@ -1,9 +1,10 @@
 import { Row, Col } from "antd";
-import { useCallback, useLayoutEffect, useState } from "react";
-import { Cell } from "../components/Cell";
+import { lazy, useCallback, useLayoutEffect, useState } from "react";
 import useSctoll from "./use-scroll";
 import useResize from "./use-resize";
 import CellSizes from "../constants/cell-sizes";
+
+const LazyCell = lazy(() => import("../components/Cell/Cell"));
 
 const useVirtualScroll = (
   containerWithScrollId: string,
@@ -27,17 +28,29 @@ const useVirtualScroll = (
   });
 
   const getRenderItemsIndexes = useCallback(() => {
-    const additionalCount = 2;
+    const additionalCountStatic = 2;
+    const additionalCountNoneDirection = 1;
+    const additionalCountDirection = 6;
+    const getAdditionalCount = (direction: typeof scroll.direction) =>
+      scroll.direction === direction
+        ? additionalCountDirection
+        : scroll.direction
+        ? additionalCountNoneDirection
+        : additionalCountStatic;
+    const additionalCountLeft = getAdditionalCount("left");
+    const additionalCountRight = getAdditionalCount("right");
+    const additionalCountTop = getAdditionalCount("top");
+    const additionalCountBot = getAdditionalCount("bot");
     const colsScrolled = Math.floor(scroll.scrollLeft / cellSizes.width);
-    const left = Math.max(colsScrolled - additionalCount, 0);
+    const left = Math.max(colsScrolled - additionalCountLeft, 0);
     const collsInView = Math.ceil(windowSize.width / cellSizes.width);
-    let right = colsScrolled + collsInView + additionalCount;
+    let right = colsScrolled + collsInView + additionalCountRight;
     right = Math.min(right, tableItems[0].length);
 
     const rowsScrolled = Math.floor(scroll.scrollTop / cellSizes.height);
-    const top = Math.max(rowsScrolled - additionalCount, 0);
+    const top = Math.max(rowsScrolled - additionalCountTop, 0);
     const rowsInView = Math.ceil(windowSize.height / cellSizes.height);
-    let bot = rowsScrolled + rowsInView + additionalCount;
+    let bot = rowsScrolled + rowsInView + additionalCountBot;
     bot = Math.min(bot, tableItems.length);
 
     return { left, right, top, bot };
@@ -50,7 +63,7 @@ const useVirtualScroll = (
       for (let c = renderItemsIndexes.left; c < renderItemsIndexes.right; c++) {
         row.push(
           <Col key={c}>
-            <Cell
+            <LazyCell
               text={tableItems[r][c]}
               progress={
                 (r * c) /

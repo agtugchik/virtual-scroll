@@ -1,7 +1,7 @@
 import { Progress, Tooltip } from "antd";
+import { memo, useState } from "react";
 import CellSizes from "../../constants/cell-sizes";
 import styles from "./styles.module.scss";
-import { memo, useState } from "react";
 
 interface CellProps {
   text: string;
@@ -31,3 +31,5 @@ export const Cell = memo(({ text, progress }: CellProps) => {
     </div>
   );
 });
+
+export default Cell;

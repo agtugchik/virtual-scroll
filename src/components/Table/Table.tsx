@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import tableItems from "../../helpers/table-items";
 import styles from "./styles.module.scss";
 import CellSizes from "../../constants/cell-sizes";
@@ -14,9 +15,9 @@ export const Table = () => {
   return (
     <div id={tableId} className={styles.table}>
       <div style={placeholderStyle.left} />
-      <div className={styles.container}>
+      <div>
         <div style={placeholderStyle.top} />
-        {itemsInView}
+        <Suspense> {itemsInView}</Suspense>
         <div style={placeholderStyle.bot} />
       </div>
       <div style={placeholderStyle.right} />

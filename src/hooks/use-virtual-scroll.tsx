@@ -54,7 +54,7 @@ const useVirtualScroll = (
     bot = Math.min(bot, tableItems.length);
 
     return { left, right, top, bot };
-  }, [scroll, windowSize]);
+  }, [scroll, windowSize, cellSizes.height, cellSizes.width, tableItems]);
 
   const getItemsInView = useCallback(() => {
     const items = [];
@@ -81,7 +81,7 @@ const useVirtualScroll = (
     }
 
     return items;
-  }, [renderItemsIndexes]);
+  }, [renderItemsIndexes, tableItems]);
 
   const calculatePlaceholderStyle = useCallback(
     (prevStyle: typeof placeholderStyle) => {
@@ -108,17 +108,17 @@ const useVirtualScroll = (
       };
       return newStyle;
     },
-    [renderItemsIndexes]
+    [renderItemsIndexes, tableItems]
   );
 
   useLayoutEffect(() => {
     setItemsInView(() => getItemsInView());
     setPlaceholderStyle((prevStyle) => calculatePlaceholderStyle(prevStyle));
-  }, [renderItemsIndexes]);
+  }, [renderItemsIndexes, calculatePlaceholderStyle, getItemsInView]);
 
   useLayoutEffect(() => {
     setRenderItemsIndexes(getRenderItemsIndexes());
-  }, [scroll, windowSize]);
+  }, [scroll, windowSize, getRenderItemsIndexes]);
 
   return { itemsInView, renderItemsIndexes, placeholderStyle };
 };
